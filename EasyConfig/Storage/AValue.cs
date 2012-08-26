@@ -1,5 +1,5 @@
 ﻿
-namespace EasyConfig.Storage
+namespace EasyConfigLib.Storage
 {
 	public class AValue
 	{

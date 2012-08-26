@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace EasyConfig.Storage
+namespace EasyConfigLib.Storage
 {
 	public class Section
 	{
@@ -46,6 +46,11 @@ namespace EasyConfig.Storage
 			_values.Remove(key);
 
 			return true;
+		}
+
+		public bool ContainsKey(string key)
+		{
+			return _values.ContainsKey(key);
 		}
 
 		public AValue this[string key]

@@ -1,12 +1,11 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using EasyConfig.Storage;
+using EasyConfigLib.Storage;
 
-namespace EasyConfig.Parsing
+namespace EasyConfigLib.Parsing
 {
 	public class TextConfigReader
-		: IConfigReader, IConfigWriter
 	{
 		public readonly string Filename;
 		/**TODO
@@ -26,7 +25,7 @@ namespace EasyConfig.Parsing
 						writer.WriteLine("[{0}]", e.Current.Name);
 						for(var v = e.Current.Values; v.MoveNext();)
 						{
-							writer.WriteLine("{0} = {1}", v.Current.Key, v.Current.Value);
+							writer.WriteLine("{0} = {1}", v.Current.Key, v.Current.Value.Value);
 						}
 					}
 				}
@@ -39,9 +38,8 @@ namespace EasyConfig.Parsing
 			return true;
 		}
 
-		public Config Read()
+		public void Read(Config cfg)
 		{
-			var cfg = new Config();
 			try
 			{
 				using (var stream = new StreamReader(Filename))
@@ -73,8 +71,6 @@ namespace EasyConfig.Parsing
 				
 				throw;
 			}
-
-			return cfg;
 		}
 
 

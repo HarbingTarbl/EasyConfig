@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using EasyConfigLib.Parsing;
 
-namespace EasyConfig.Storage
+namespace EasyConfigLib.Storage
 {
 	public class Config
 	{
 		private readonly Dictionary<string, Section> _sections;
+		private readonly TextConfigReader _serial;
 
 		public Section CurrentSection { get; private set; }
 
@@ -69,26 +71,29 @@ namespace EasyConfig.Storage
 			if (CurrentSection == null)
 				return false;
 
+			if (!CurrentSection.ContainsKey(name))
+				return false;
+
 			switch (Type.GetTypeCode(dataType))
 			{
 				case TypeCode.Int32:
 					int intv;
-					if (!int.TryParse((string)CurrentSection[name], out intv))
+					if (!int.TryParse(CurrentSection[name], out intv))
 						return false;
 					data = intv;
 					break;
 				case TypeCode.String:
-					data = CurrentSection[name];
+					data = CurrentSection[name].Value;
 					break;
 				case TypeCode.Single:
 					float fv;
-					if (!float.TryParse((string)CurrentSection[name], out fv))
+					if (!float.TryParse(CurrentSection[name], out fv))
 						return false;
 					data = fv;
 					break;
 				case TypeCode.Boolean:
 					bool bv;
-					if (!bool.TryParse((string)CurrentSection[name], out bv))
+					if (!bool.TryParse(CurrentSection[name], out bv))
 						return false;
 					data = bv;
 					break;
@@ -110,9 +115,20 @@ namespace EasyConfig.Storage
 			return true;
 		}
 
-		public Config()
+		public Config(string filename)
 		{
+			_serial = new TextConfigReader(filename);
 			_sections = new Dictionary<string, Section>();
+		}
+
+		public void Save()
+		{
+			_serial.Save(this);
+		}
+
+		public void Load()
+		{
+			_serial.Read(this);
 		}
 
 	}
