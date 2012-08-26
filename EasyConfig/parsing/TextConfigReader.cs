@@ -1,9 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using EasyConfig.storage;
+using EasyConfig.Storage;
 
-namespace EasyConfig.parsing
+namespace EasyConfig.Parsing
 {
 	public class TextConfigReader
 		: IConfigReader, IConfigWriter
@@ -15,7 +15,7 @@ namespace EasyConfig.parsing
 		public string PairDelim;
 		 */
 
-		public void Write(Config c)
+		public bool Save(Config c)
 		{
 			try
 			{
@@ -35,13 +35,15 @@ namespace EasyConfig.parsing
 			{
 				throw;
 			}
+
+			return true;
 		}
 
 		public Config Read()
 		{
+			var cfg = new Config();
 			try
 			{
-				var cfg = new Config();
 				using (var stream = new StreamReader(Filename))
 				{
 					while (!stream.EndOfStream)
@@ -52,7 +54,7 @@ namespace EasyConfig.parsing
 
 						line = line.Trim();
 
-						if(line.Contains("="))
+						if(!line.Contains("="))
 						{
 							var secstr = line.Substring(line.IndexOf('[') + 1, line.LastIndexOf(']') - 1);
 							cfg.AddSection(secstr);
@@ -72,7 +74,7 @@ namespace EasyConfig.parsing
 				throw;
 			}
 
-			return null;
+			return cfg;
 		}
 
 

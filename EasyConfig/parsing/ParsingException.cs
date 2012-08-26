@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace EasyConfig.parsing
+namespace EasyConfig.Parsing
 {
 	public class ParsingException
 		: Exception

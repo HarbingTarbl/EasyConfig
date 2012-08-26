@@ -1,6 +1,6 @@
-﻿using EasyConfig.storage;
+﻿using EasyConfig.Storage;
 
-namespace EasyConfig.parsing
+namespace EasyConfig.Parsing
 {
 	interface IConfigWriter
 	{

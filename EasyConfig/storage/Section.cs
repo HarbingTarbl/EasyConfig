@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace EasyConfig.storage
+namespace EasyConfig.Storage
 {
 	public class Section
 	{
@@ -13,17 +13,15 @@ namespace EasyConfig.storage
 		}
 
 		private readonly string _name;
-		private Config _parent;
-		private readonly Dictionary<string, string> _values; 
+		private readonly Dictionary<string, AValue> _values; 
 
-		public Section(string name, Config parent)
+		public Section(string name)
 		{
 			_name = name;
-			_parent = parent;
-			_values = new Dictionary<string, string>();
+			_values = new Dictionary<string, AValue>();
 		}
 
-		public IEnumerator<KeyValuePair<string, string>> Values
+		public IEnumerator<KeyValuePair<string, AValue>> Values
 		{
 			get
 			{
@@ -46,15 +44,17 @@ namespace EasyConfig.storage
 				return false;
 
 			_values.Remove(key);
+
 			return true;
 		}
 
-		public string this[string key]
+		public AValue this[string key]
 		{
 			get
 			{
 				return _values[key];
 			}
+
 			set
 			{
 				_values[key] = value;

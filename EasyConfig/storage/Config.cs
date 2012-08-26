@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace EasyConfig.storage
+namespace EasyConfig.Storage
 {
 	public class Config
 	{
@@ -32,7 +32,7 @@ namespace EasyConfig.storage
 			if (_sections.ContainsKey(name))
 				return null;
 
-			var sec = new Section(name, this);
+			var sec = new Section(name);
 			_sections.Add(name, sec);
 			return sec;
 		}
@@ -73,7 +73,7 @@ namespace EasyConfig.storage
 			{
 				case TypeCode.Int32:
 					int intv;
-					if (!int.TryParse(CurrentSection[name], out intv))
+					if (!int.TryParse((string)CurrentSection[name], out intv))
 						return false;
 					data = intv;
 					break;
@@ -82,13 +82,13 @@ namespace EasyConfig.storage
 					break;
 				case TypeCode.Single:
 					float fv;
-					if (!float.TryParse(CurrentSection[name], out fv))
+					if (!float.TryParse((string)CurrentSection[name], out fv))
 						return false;
 					data = fv;
 					break;
 				case TypeCode.Boolean:
 					bool bv;
-					if (!bool.TryParse(CurrentSection[name], out bv))
+					if (!bool.TryParse((string)CurrentSection[name], out bv))
 						return false;
 					data = bv;
 					break;
