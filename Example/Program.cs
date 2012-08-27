@@ -14,6 +14,8 @@ namespace Example
 		public string vstr = "Test";
 		[Field("Value Bool")]
 		public bool vbool = false;
+		[Field]
+		public int autonamedfield = 100;
 
 
 		public ProgramConfig(string filename)
@@ -28,6 +30,9 @@ namespace Example
 		static void Main(string[] args)
 		{
 			var cfg = new ProgramConfig("../../cfg.cfg");
+			cfg.vint = 100;
+			cfg.WriteValues();
+			cfg.Save();
 		}
 	}
 }

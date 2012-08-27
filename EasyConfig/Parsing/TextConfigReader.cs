@@ -40,6 +40,12 @@ namespace EasyConfigLib.Parsing
 
 		public void Read(Config cfg)
 		{
+			if (!File.Exists(Filename))
+			{
+				File.Create(Filename).Close();
+				return;
+			}
+
 			try
 			{
 				using (var stream = new StreamReader(Filename))
@@ -60,7 +66,7 @@ namespace EasyConfigLib.Parsing
 						}
 						else
 						{
-							var args = line.Split('=').Select(s => s.Trim());
+							var args = line.Split(new [] { '=' } , 2).Select(s => s.Trim());
 							cfg.Write(args.First(), args.Last());
 						}
 					}

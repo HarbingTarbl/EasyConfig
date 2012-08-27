@@ -49,10 +49,16 @@ namespace EasyConfigLib.Storage
 
 		public Section SetSection(string name)
 		{
-			Section sec;
-			_sections.TryGetValue(name, out sec);
-			CurrentSection = sec;
-			return sec;
+			if(_sections.ContainsKey(name))
+			{
+				CurrentSection = _sections[name];
+			}
+			else
+			{
+				CurrentSection = AddSection(name);
+			}
+			
+			return CurrentSection;
 		}
 
 		public bool Write<TData>(string name, TData data)
