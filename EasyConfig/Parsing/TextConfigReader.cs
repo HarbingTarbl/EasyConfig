@@ -67,7 +67,7 @@ namespace EasyConfigLib.Parsing
 						else
 						{
 							var args = line.Split(new [] { '=' } , 2).Select(s => s.Trim());
-							cfg.Write(args.First(), args.Last());
+							cfg.Write(args.ElementAt(0), args.Count() == 2 ? args.ElementAt(1) : "");
 						}
 					}
 				}
