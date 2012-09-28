@@ -13,7 +13,7 @@ namespace EasyConfigLib.Storage
 		{
 			Load();
 			fields = GetType().GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly | BindingFlags.Instance);
-			Array.Sort(fields, (f, s) => f.FieldHandle.Value.ToInt32().CompareTo(s.FieldHandle.Value.ToInt32()));
+			Array.Sort(fields, (f, s) => f.FieldHandle.Value.ToInt64().CompareTo(s.FieldHandle.Value.ToInt64()));
 			ReadValues();
 			Save();
 		}
