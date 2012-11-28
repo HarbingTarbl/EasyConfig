@@ -53,10 +53,10 @@ namespace EasyConfigLib.Parsing
 					while (!stream.EndOfStream)
 					{
 						var line = stream.ReadLine();
-						if (line == null)
+						line = line.Trim();
+						if (string.IsNullOrWhiteSpace(line))
 							continue;
 
-						line = line.Trim();
 
 						if(!line.Contains("="))
 						{

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using EasyConfigLib.Storage;
 
 namespace Example
@@ -16,6 +17,8 @@ namespace Example
 		public bool vbool = false;
 		[Field]
 		public int autonamedfield = 100;
+		[Field]
+		public Dictionary<string, float> list = new Dictionary<string, float>();
 
 
 		public ProgramConfig(string filename)
@@ -33,6 +36,8 @@ namespace Example
 			cfg.vint = 100;
 			cfg.WriteValues();
 			cfg.Save();
+
+			Console.WriteLine("List:{0}", cfg.list.Count);
 		}
 	}
 }
